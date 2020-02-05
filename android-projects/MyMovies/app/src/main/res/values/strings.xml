@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="title_activity_movies">MoviesActivity</string>
+    <string name="error_message">No internet connection and no saved files.</string>
+    <string name="title_rating">Evaluation</string>
+    <string name="title_company">Company</string>
+</resources>
