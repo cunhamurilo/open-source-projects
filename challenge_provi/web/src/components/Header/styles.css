@@ -1,5 +1,5 @@
 .header-movie {
-    /* position: absolute; */
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -59,7 +59,7 @@
     vertical-align: middle;
     cursor: pointer;
   }
-  .header-movie .ul-navigation {
+  .ul-navigation {
     margin: 0;
     padding: 0;
     display: flex;
@@ -70,19 +70,32 @@
     cursor: pointer;
   }
 
-
-  .header-movie .ul-navigation .ul-navigation-menu,
-  .header-movie .ul-navigation .ul-navigation-tab {
+  .ul-navigation-menu,
+  .ul-navigation-tab {
     margin-left: 18px;
     list-style-type: none;
   }
-  .header-movie .ul-navigation .ul-navigation-menu .menu-trigger {
+  .menu-trigger {
     height: 100%;
     font-weight: 700;
     display: flex;
     align-items: center;
   }
-  .header-movie .ul-navigation .ul-navigation-tab {
+
+  .ul-navigation-menu:hover ~ .ul-navigation-tab-menu {
+    display: block;
+    padding: 10px;
+    margin-top: 150px;
+    margin-left: -90px;
+    background-color: black;
+    padding-right: 20px;
+  }
+
+  /* .ul-navigation-tab-menu {
+    display: flex;
+  } */
+
+  .ul-navigation-tab-menu {
     display: none;
   }
   .header-movie .ul-navigation .ul-navigation-tab a {
@@ -135,33 +148,7 @@
   .header-movie .secondary-navigation .nav-element a {
     display: block;
   }
-  .gifts {
-    white-space: normal;
-  }
-  .gifts-menu {
-    position: relative;
-    padding: 2px 6px 3px;
-    margin-top: 0.2em;
-    font-size: 1.5em;
-    line-height: 1;
-    border: none;
-    background-color: transparent;
-  }
-  .header-movie .secondary-navigation .notifications {
-    position: relative;
-  }
-  .notifications {
-    white-space: normal;
-  }
-  .notifications .notifications-menu {
-    position: relative;
-    padding: 2px 6px 3px;
-    margin-top: 0.2em;
-    font-size: 1.5em;
-    line-height: 1;
-    border: none;
-    background-color: transparent;
-  }
+
   .header-movie .account-menu-item {
     position: relative;
     font-size: 12px;
@@ -190,13 +177,15 @@
     vertical-align: middle;
   }
   @media screen and (min-width: 885px) {
-    .header-movie .ul-navigation:not(.has-dropdown-menu) .ul-navigation-menu {
+    .ul-navigation-menu {
       display: none;
     }
-    .header-movie .ul-navigation:not(.has-dropdown-menu) .ul-navigation-tab {
-      display: block;
+
+    .ul-navigation-tab-menu {
+      display: flex;
     }
   }
+
   @media screen and (max-width: 950px) {
     .header-movie .account-dropdown-button {
       height: 40px;

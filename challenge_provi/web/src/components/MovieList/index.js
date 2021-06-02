@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import api from '../../services/api'
 
-// import MovieListCard from '../MovieListCard'
+import MovieListCard from '../MovieListCard'
 import FeaturedMovie from '../FeaturedMovie'
 
 import './styles.css'
@@ -21,7 +21,7 @@ export default function MovieList({ state }) {
       else if(state === "Séries")
         response = await api.getDataByType("tv")
       else if(state === "Inicio")
-        response = await api.getAllData("tv")
+        response = await api.getAllData()
 
       setMovieList(response)
     }
@@ -38,15 +38,14 @@ export default function MovieList({ state }) {
 
       const movieChosen = movieList.data[movieChosenRandom]
 
-      console.log('movieChosen',movieChosen)
-      console.log(movieChosen.media_type, state)
+      let aux = "tv"
+      if(state === "Filmes")
+        aux = "movie"
 
       const chosenInformation = await api.getMovieInformation(
         movieChosen.id,
-        movieChosen.media_type !== null ? movieChosen.media_type: state
+        movieChosen.media_type !== undefined ? movieChosen.media_type: aux
       )
-
-      console.log(chosenInformation.info)
 
       setFeaturedMovie(chosenInformation.info)
     }
@@ -54,24 +53,23 @@ export default function MovieList({ state }) {
     if (movieList !== null) {
       loadFeaturedMovie()
     }
-  }, [movieList])
+  }, [movieList,state])
 
   return (
     <>
       {!!featuredMovie && <FeaturedMovie movie={featuredMovie} />}
-      {/* 
+      
       <section className="movie-list-section">
-        {!!movieList &&
-          movieList.map((item, key) => (
-            <div key={key} className="movie-list-card">
-              <MovieListCard
-                title={item.title}
-                movies={item.movies}
-                slug={item.slug}
-              />
-            </div>
-          ))}
-      </section> */}
+        {!!movieList && 
+           
+             <div className="movie-list-card">
+               <MovieListCard
+                 title={"Highlights"}
+                 movies={movieList.data}
+               />
+             </div>
+        }
+      </section>
     </>
   )
 }
