@@ -35,7 +35,7 @@ export default function MovieListCard({ title, movies  }) {
   return (
     <>
       <h2 className="movie-list-header">
-        <a className="movie-list-title" >
+        <a href="a" className="movie-list-title" >
           <div className="movie-list-header-title">{title}</div>
 
           <div className="arrow-row-header">

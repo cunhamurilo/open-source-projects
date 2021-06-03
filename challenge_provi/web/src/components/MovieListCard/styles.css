@@ -324,3 +324,12 @@
     width: 7%;
   }
 }
+
+.movie-row-container
+    .movie-row-content
+    .slider
+    .row-with-x-columns
+    .slider-item:hover {
+
+    width: 8%;
+    }

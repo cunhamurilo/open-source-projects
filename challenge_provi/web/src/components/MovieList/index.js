@@ -7,9 +7,8 @@ import FeaturedMovie from '../FeaturedMovie'
 
 import './styles.css'
 
-export default function MovieList({ state }) {
+export default function MovieList({ state, setShow, featuredMovie, setFeaturedMovie }) {
   const [movieList, setMovieList] = useState(null)
-  const [featuredMovie, setFeaturedMovie] = useState(null)
 
   useEffect(() => {
     // load data from db
@@ -57,7 +56,7 @@ export default function MovieList({ state }) {
 
   return (
     <>
-      {!!featuredMovie && <FeaturedMovie movie={featuredMovie} />}
+      {!!featuredMovie && <FeaturedMovie movie={featuredMovie} setShow={setShow}/>}
       
       <section className="movie-list-section">
         {!!movieList && 

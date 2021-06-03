@@ -5,25 +5,30 @@ import './styles.css'
 import { GrPlayFill } from 'react-icons/gr';
 import { AiFillInfoCircle } from 'react-icons/ai';
 
+
+import { BsPlusCircle } from 'react-icons/bs';
+import { BiLike } from 'react-icons/bi';
+import { BiDislike } from 'react-icons/bi';
+
 import logo from '../../assets/images/logo_unica_netflix.png'
 
-export default function FeaturedMovie({ movie }) {
+export default function FeaturedMovie({ movie, setShow, imageMedium }) {
 
   // Check if overview is large and put ... for cut
   let description = movie.overview
   if (description.length > 200) {
     description = description.substring(0, 200) + ' ...'
   }
-
+  
   return (
     <section className="featured-movie-section">
-      <div className="featured-movie-row">
+      <div className={imageMedium ? "featured-movie-row row-clear" : "featured-movie-row"}>
         {/* Panel with info about the movie or serie */}
-        <div className="featured-movie-panel">
+        <div className={imageMedium ? "featured-movie-panel medium-panel":"featured-movie-panel"}>
           {/* Insert image in panel */}
           <div className="featured-movie-motion">
             <div className="bottom-layer full-screen">
-              <div className="image-wrapper">
+              <div className={imageMedium ? "wrapper-medium image-wrapper" : "image-wrapper"} >
                 <img
                   src={`http://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                   alt={movie.name}
@@ -54,7 +59,7 @@ export default function FeaturedMovie({ movie }) {
 
                 {/* Show information about the movie or series like title, description and number of seasons*/}
                 <div className="title-wrapper">
-                  <div className="featured-movie-title">
+                  <div className={imageMedium ? "wrapper-medium featured-movie-title" : "featured-movie-title"}>
                     {movie.original_title || movie.original_name}
                   </div>
                 </div>
@@ -67,10 +72,10 @@ export default function FeaturedMovie({ movie }) {
                       } 
                     </div>
                   </div>
-
+                  {imageMedium ? "":
                   <div className="featured-movie-synopsis">
                     <div className="synopsis-text">{description}</div>
-                  </div>
+                  </div>}
                 </div>
 
                 {/* Buttons for watch and more information */}
@@ -83,13 +88,25 @@ export default function FeaturedMovie({ movie }) {
                     <div className="icon-text">Watch</div>
                   </button>
 
-                  <button className="button-main color-secondary has-label has-icon">
-                    <div className="icon-main icon-medium">
-                      <AiFillInfoCircle />
-                    </div>
-
-                    <div className="icon-text">More information</div>
-                  </button>
+                  { !imageMedium ?  
+                    <button className="button-main color-secondary has-label has-icon">
+                      <div className="icon-main icon-medium">
+                        <AiFillInfoCircle />
+                      </div>
+                        <div className="icon-text" onClick={() => setShow(true)}>More information</div>
+                    </button> :
+                    <ul className="button-main-rounded color-secondary has-label has-icon" >
+                      <li className="rounded" >
+                        <BsPlusCircle size="40" />
+                      </li>
+                      <li className="rounded" >
+                        <BiLike size="28" />
+                      </li>
+                      <li className="rounded" >
+                        <BiDislike size="28" />
+                      </li>
+                    </ul>
+                   }
                 </div>
 
               </div>

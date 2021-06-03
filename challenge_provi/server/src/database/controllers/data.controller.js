@@ -12,9 +12,7 @@ exports.getDataByType = async(req, res) => {
         const json = JSON.parse(circular)
 
         let resultsData = json.data.results
-
-        console.log(resultsData)    
-
+ 
         res.status(200).send({ data: resultsData });
     } catch (error) {
         console.error(error)
