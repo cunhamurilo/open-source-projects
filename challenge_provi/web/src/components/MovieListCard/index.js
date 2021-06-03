@@ -10,7 +10,8 @@ import './styles.css'
 
 export default function MovieListCard({ title, movies  }) {
   const [sliderScrollX, setSliderScrollX] = useState(0)
-
+  
+  // Function scrol previous list of cards 
   function handlePrev() {
     let scrollX = sliderScrollX + Math.round(window.innerWidth / 2)
 
@@ -21,6 +22,7 @@ export default function MovieListCard({ title, movies  }) {
     setSliderScrollX(scrollX)
   }
 
+  // Function scrol next list of cards
   function handleNext() {
     let scrollX = sliderScrollX - Math.round(window.innerWidth / 2)
     let listItems = movies.length * 339
@@ -38,8 +40,9 @@ export default function MovieListCard({ title, movies  }) {
         <a href="a" className="movie-list-title" >
           <div className="movie-list-header-title">{title}</div>
 
+            {/* Button highlghts */}
           <div className="arrow-row-header">
-            <div className="see-all-link">Ver tudo</div>
+            <div className="see-all-link">See all</div>
             <FaAngleRight className="arrow-row-icon" />
           </div>
         </a>
@@ -50,6 +53,8 @@ export default function MovieListCard({ title, movies  }) {
       >
         <div className="movie-row-content slider-hover-trigger-layer">
           <div className="slider">
+
+            {/* Button scroll list of card of movies */}
             {!!sliderScrollX && (
               <span className="handle handle-prev active" onClick={handlePrev}>
                 <b className="indicator-icon">
@@ -58,6 +63,7 @@ export default function MovieListCard({ title, movies  }) {
               </span>
             )}
 
+            {/* list of card of movies */}
             <div className="slider-mask show-peek">
               <div
                 className="slider-content row-with-x-columns"
@@ -95,7 +101,7 @@ export default function MovieListCard({ title, movies  }) {
                 ))}
               </div>
             </div>
-
+            {/* Button scroll list of card of movies */}
             <span className="handle handle-next active" onClick={handleNext}>
               <b className="indicator-icon">
                 <FaChevronRight />

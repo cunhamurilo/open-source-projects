@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header'
 import MovieList from '../../components/MovieList'
 import Modal from '../../components/Modal'
 
 import './styles.css'
+
+import AuthService from '../../services/api';
 
 export default function Home() {
   const [pageScroll, setPageScroll] = useState(false)
@@ -13,6 +16,19 @@ export default function Home() {
 
   const [menuState, setMenuState] = useState("Inicio")
 
+  const history = useHistory();
+
+  // Check if user already logged
+  useEffect(() => {
+
+    const currentUser = AuthService.getCurrentUser();
+    if (!currentUser){
+        history.push('/')
+    }
+        
+  }, []);
+
+  // Scroll page
   useEffect(() => {
     function scrollListener() {
       if (window.scrollY > 10) {

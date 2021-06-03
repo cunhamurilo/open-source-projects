@@ -1,0 +1,32 @@
+.input-block {
+    position:relative;
+    border: 2px solid var(--color-line-in-white);
+    border-radius: 5px;
+    background: grey !important;
+    margin-top: 8px;
+    color: white;
+}
+::placeholder {
+    color: white;
+    opacity: 1;
+  }
+
+.input-block input {
+    width: 100%;
+    height: 4.0rem;
+    background: var(--color-input-background);
+    border: 0px solid var(--color-line-in-white);
+    padding: 0 1.6rem;
+    color: white;
+}
+
+.input-block:focus-within::after {
+    width: calc(100%-1.6rem);
+    height: 2px;
+    content: '';
+    background: var(--color-primary-light);
+    position: absolute;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0;
+}

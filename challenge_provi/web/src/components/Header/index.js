@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
+import { useHistory } from 'react-router-dom';
 
 import './styles.css'
 import logo from '../../assets/images/netflix-logo.png'
@@ -7,7 +8,12 @@ import avatar from '../../assets/images/netflix-avatar.png'
 import { FiSearch } from 'react-icons/fi';
 import { GoTriangleDown } from 'react-icons/go';
 
+import AuthService from '../../services/api';
+
 export default function Header({ scroll, state, setState }) {
+
+  const [username, setUsername] = useState('');
+  const history = useHistory();
 
   // menu list
   const menuList = [
@@ -21,13 +27,39 @@ export default function Header({ scroll, state, setState }) {
     setState(e.target.text)
   }
 
+  function handleSearch(){
+    let nameValue = document.getElementById("search").value;
+    console.log(nameValue)
+  }
+
+  // Logout user
+  function logoutUser (){
+    AuthService.logout();
+
+    const currentUser = AuthService.getCurrentUser();
+    if (!currentUser){
+      history.go(0);
+    //     history.push('/');
+    }
+  }
+  
+  // Get current user
+  useEffect(() => {
+
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser){
+        setUsername(currentUser.username)
+    }
+        
+  }, []);
+
   return (
     <section className={`header-movie ${scroll ? 'page-scroll' : ''}`}>
       <div className="header-movie-container">
         <div className="main-header menu-navigation display-flex-space-between">
           <div className="display-flex">
             {/* Netflix logo */}
-            <a className="logo" href="a">
+            <a className="logo" href="#">
               <img src={logo} alt="logo da Netflix" width="100" />
             </a>
             {/* Menu with itens */}
@@ -43,7 +75,7 @@ export default function Header({ scroll, state, setState }) {
               {!!menuList &&
                 menuList.map((item, key) => (
                   <li key={key} className="ul-navigation-tab">
-                    <a href="." className={state === item.title ? 'current':''} onClick={menuClickButton} >
+                    <a className={state === item.title ? 'current':''} onClick={menuClickButton} >
                       {item.title}
                     </a>
                   </li>
@@ -56,13 +88,16 @@ export default function Header({ scroll, state, setState }) {
             <div className="nav-element">
               <div className="search-main">
                 <div className="search-item">
-                  <span className="icon-search">
-                    <FiSearch />
-                  </span>
+                  <form onSubmit={handleSearch}>
+                    <input type="search" id="search" placeholder="Title" onChange={handleSearch}/>
+                    <i className="fa">
+                      <FiSearch size="28"/>
+                    </i>
+                  </form>
                 </div>
               </div>
             </div>
-            {/* Button account */}
+            {/* Buttons account */}
             <div className="nav-element">
               <span className="account-menu-item">
                 <span className="account-dropdown-button">
@@ -70,16 +105,17 @@ export default function Header({ scroll, state, setState }) {
                     <img src={avatar} alt="" className="profile-icon" />
                     <GoTriangleDown />
                   </span>
+                  {/* Buttons submenu  */}
                   <ul className='ul-navigation-account'>
                     <li key="user" className="ul-navigation-tab-account">
-                      <a href="a" >
-                        name
-                      </a>
+                      <div >
+                        {username}
+                      </div>
                     </li>
                     <li key="exit" className="ul-navigation-tab-account">
-                      <a href='a' >
+                      <div onClick={logoutUser} >
                         Exit Netflix
-                      </a>
+                      </div>
                     </li>
                   </ul>
                 </span>

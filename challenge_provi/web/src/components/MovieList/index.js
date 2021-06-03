@@ -10,8 +10,8 @@ import './styles.css'
 export default function MovieList({ state, setShow, featuredMovie, setFeaturedMovie }) {
   const [movieList, setMovieList] = useState(null)
 
+  // Load data from db  
   useEffect(() => {
-    // load data from db
     async function loadMovieList() {
       let response = []
 
@@ -28,6 +28,7 @@ export default function MovieList({ state, setShow, featuredMovie, setFeaturedMo
     loadMovieList()
   }, [state])
 
+  // Choose on movie random for the featured layout 
   useEffect(() => {
     async function loadFeaturedMovie() {
       
@@ -56,8 +57,9 @@ export default function MovieList({ state, setShow, featuredMovie, setFeaturedMo
 
   return (
     <>
+      {/* Set layout about featured movie */}
       {!!featuredMovie && <FeaturedMovie movie={featuredMovie} setShow={setShow}/>}
-      
+      {/* Set list of card with movies */}
       <section className="movie-list-section">
         {!!movieList && 
            
