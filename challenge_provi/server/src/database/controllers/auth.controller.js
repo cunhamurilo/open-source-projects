@@ -8,6 +8,7 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+// Create user
 exports.signup = (req, res) => {
   // Save User to Database
   User.create({
@@ -40,6 +41,7 @@ exports.signup = (req, res) => {
     });
 };
 
+// Login with params and create JWT token for oauth
 exports.signin = (req, res) => {
   User.findOne({
     where: {
@@ -63,10 +65,12 @@ exports.signin = (req, res) => {
         });
       }
 
+      // Token access
       var accessToken = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
 
+      // Token for refresh, dont expire
       var refressToken = jwt.sign({ id: user.id }, config.refreshTokenSecret);
     
       var authorities = [];
@@ -89,6 +93,7 @@ exports.signin = (req, res) => {
     });
 };
 
+// Get a new access token from refresh token
 exports.exchangeToken = (req,res) => {
   User.findOne({
     where: {
@@ -100,7 +105,7 @@ exports.exchangeToken = (req,res) => {
         return res.status(404).send({ message: "User Not found." });
       }
 
-
+      // Check params from http request
       let token = req.headers["x-access-token"];
       if (!token) {
         return res.status(403).send({
@@ -108,13 +113,15 @@ exports.exchangeToken = (req,res) => {
         });
       }
 
+      // Verify token exist
       jwt.verify(token, config.refreshTokenSecret, (err, decoded) => {
         if (err) {
           return res.status(401).send({
             message: "Unauthorized!"
           });
         }
-
+        
+        // create new token 
         var accessToken = jwt.sign({ id: user.id }, config.secret, {
           expiresIn: 86400
         });

@@ -10,7 +10,7 @@ import { GoTriangleDown } from 'react-icons/go';
 
 import AuthService from '../../services/api';
 
-export default function Header({ scroll, state, setState }) {
+export default function Header({ scroll, state, setState, setSearch }) {
 
   const [username, setUsername] = useState('');
   const history = useHistory();
@@ -24,12 +24,12 @@ export default function Header({ scroll, state, setState }) {
 
   // Change menu item clicked
   function menuClickButton(e){
-    setState(e.target.text)
+    setState(e.target.innerText)
   }
 
   function handleSearch(){
     let nameValue = document.getElementById("search").value;
-    console.log(nameValue)
+    setSearch(nameValue)
   }
 
   // Logout user
@@ -59,7 +59,7 @@ export default function Header({ scroll, state, setState }) {
         <div className="main-header menu-navigation display-flex-space-between">
           <div className="display-flex">
             {/* Netflix logo */}
-            <a className="logo" href="#">
+            <a className="logo" href="/home">
               <img src={logo} alt="logo da Netflix" width="100" />
             </a>
             {/* Menu with itens */}
@@ -75,9 +75,9 @@ export default function Header({ scroll, state, setState }) {
               {!!menuList &&
                 menuList.map((item, key) => (
                   <li key={key} className="ul-navigation-tab">
-                    <a className={state === item.title ? 'current':''} onClick={menuClickButton} >
+                    <div className={state === item.title ? 'current':''} onClick={menuClickButton} >
                       {item.title}
-                    </a>
+                    </div>
                   </li>
                 ))}
               </div>

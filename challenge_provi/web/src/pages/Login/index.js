@@ -42,7 +42,7 @@ export default function Login() {
             history.push('/home')
         }
             
-    }, []);
+    }, [history]);
 
     return (
         <div id="page-sign-in">
@@ -60,6 +60,7 @@ export default function Login() {
 
                         {/* Input with username and password */}
                         <p className='error-sign-in'>{errorAuth}</p>
+
                         <div className='input-container'>
                             <Input 
                                 onChange={ (event) => setUsername(event.target.value) }

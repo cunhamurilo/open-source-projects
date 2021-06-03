@@ -7,3 +7,11 @@
   box-sizing: border-box;
   z-index: 2;
 }
+
+.list-section-margin {
+  margin-top: 90px;
+}
+
+.movie-list-section {
+  margin-top: 100px;
+}

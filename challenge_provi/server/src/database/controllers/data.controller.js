@@ -1,6 +1,7 @@
 const axios = require('axios');
 const CircularJSON = require('circular-json');
 
+// Get movie from type (movie or tv)
 exports.getDataByType = async(req, res) => {
     const { type }  = req.body
     
@@ -15,10 +16,11 @@ exports.getDataByType = async(req, res) => {
  
         res.status(200).send({ data: resultsData });
     } catch (error) {
-        console.error(error)
+        // console.error(error)
     }
 };
 
+// Get movie from title params
 exports.getSearchData = async(req, res) => {
     const { title, type }  = req.body
     
@@ -33,10 +35,11 @@ exports.getSearchData = async(req, res) => {
 
         res.status(200).send({ data: resultsData });
     } catch (error) {
-        console.error(error)
+        // console.error(error)
     }
 };
 
+// Get both movie and tv
 exports.getAllData = async(req, res) => {
     
     try {
@@ -60,10 +63,11 @@ exports.getAllData = async(req, res) => {
 
         res.status(200).send({ data: superJson });
     } catch (error) {
-        console.error(error)
+        // console.error(error)
     }
 };
 
+// Get info about unique id 
 exports.getMovieInformation = async(req, res) => {
     const { id, type }  = req.body
     
@@ -77,6 +81,6 @@ exports.getMovieInformation = async(req, res) => {
 
         res.status(200).send({info: resultsData});
     } catch (error) {
-        console.error(error)
+        // console.error(error)
     }
 };

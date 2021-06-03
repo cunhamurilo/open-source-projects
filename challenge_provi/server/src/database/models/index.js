@@ -1,6 +1,7 @@
 const config = require("../config/db.config.js");
-
 const Sequelize = require("sequelize");
+
+// Condif database with sequelize
 const sequelize = new Sequelize(
   config.DB,
   config.USER,
@@ -20,6 +21,7 @@ db.sequelize = sequelize;
 db.user = require("./user.model.js")(sequelize, Sequelize);
 db.role = require("./role.model.js")(sequelize, Sequelize);
 
+// Relations
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",

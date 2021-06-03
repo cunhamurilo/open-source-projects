@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 require('./database/routes/auth.routes')(app);
 require('./database/routes/user.routes')(app);
 
-//routes get from external server
+//routes get data from external server
 require('./database/routes/data.routes')(app);
 
 // use req.body

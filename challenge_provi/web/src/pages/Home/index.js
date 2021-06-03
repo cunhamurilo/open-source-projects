@@ -13,6 +13,7 @@ export default function Home() {
   const [pageScroll, setPageScroll] = useState(false)
   const [show, setShow] = useState(false);
   const [featuredMovie, setFeaturedMovie] = useState(null)
+  const [search, setSearch] = useState(null)
 
   const [menuState, setMenuState] = useState("Inicio")
 
@@ -23,10 +24,10 @@ export default function Home() {
 
     const currentUser = AuthService.getCurrentUser();
     if (!currentUser){
-        history.push('/')
+      history.push('/')
     }
         
-  }, []);
+  }, [history]);
 
   // Scroll page
   useEffect(() => {
@@ -47,8 +48,8 @@ export default function Home() {
 
   return (
     <>
-      <Header scroll={pageScroll} state={menuState} setState={setMenuState}/>
-      <MovieList state ={menuState} setState={setMenuState} setShow={setShow} featuredMovie={featuredMovie} setFeaturedMovie={setFeaturedMovie}/>
+      <Header scroll={pageScroll} state={menuState} setState={setMenuState} setSearch={setSearch}/>
+      <MovieList state ={menuState} setState={setMenuState} setShow={setShow} search={search} featuredMovie={featuredMovie} setFeaturedMovie={setFeaturedMovie}/>
 
       <Modal title="My Modal" onClose={() => setShow(false)} show={show} featuredMovie={featuredMovie}>
         <p>This is modal body</p>

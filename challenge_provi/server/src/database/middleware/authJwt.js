@@ -3,6 +3,7 @@ const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.user;
 
+// Check token from request
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
@@ -12,6 +13,7 @@ verifyToken = (req, res, next) => {
     });
   }
 
+  // Verify if exists token
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
 
@@ -24,6 +26,7 @@ verifyToken = (req, res, next) => {
   });
 };
 
+// Checks if is admin
 isAdmin = (req, res, next) => {
   User.findByPk(req.userId).then(user => {
     user.getRoles().then(roles => {

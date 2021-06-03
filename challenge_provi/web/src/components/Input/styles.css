@@ -2,7 +2,7 @@
     position:relative;
     border: 2px solid var(--color-line-in-white);
     border-radius: 5px;
-    background: grey !important;
+    background: gray !important;
     margin-top: 8px;
     color: white;
 }
